@@ -8,37 +8,26 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  double fontSizeOfText = 14;
+  bool checkBoxValue = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("FontSize App"),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "Recursion",
-              style: TextStyle(fontSize: fontSizeOfText),
+            Checkbox(
+              value: checkBoxValue,
+              onChanged: (value) {
+                setState(() {
+                  checkBoxValue = !checkBoxValue;
+                });
+              },
             ),
             const SizedBox(
               height: 20,
             ),
-            ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    if (fontSizeOfText <= 40) {
-                      fontSizeOfText += 2;
-                    } else {
-                      fontSizeOfText = 40;
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Not Possible")));
-                    }
-                  });
-                },
-                child: const Icon(Icons.add))
+            if (checkBoxValue) const Text("CheckBox Checked!")
           ],
         ),
       ),
