@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,32 +8,39 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Color> colors = [
-    Colors.white,
-    Colors.black,
-    Colors.green,
-    Colors.amber,
-    Colors.deepOrange,
-    Colors.deepPurple,
-    Colors.blue,
-    Colors.lime
-  ];
-
-  Color _defaultColor = Colors.white;
-
+  double fontSizeOfText = 14;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _defaultColor,
+      appBar: AppBar(
+        title: const Text("FontSize App"),
+      ),
       body: Center(
-        child: ElevatedButton(
-            onPressed: () {
-              setState(() {
-                Random random = Random();
-                _defaultColor = colors[random.nextInt(colors.length)];
-              });
-            },
-            child: const Text("Change Background")),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Recursion",
+              style: TextStyle(fontSize: fontSizeOfText),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    if (fontSizeOfText <= 40) {
+                      fontSizeOfText += 2;
+                    } else {
+                      fontSizeOfText = 40;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Not Possible")));
+                    }
+                  });
+                },
+                child: const Icon(Icons.add))
+          ],
+        ),
       ),
     );
   }
